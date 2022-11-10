@@ -1,0 +1,8 @@
+filebeat.inputs:
+- type: log
+  paths:
+    - /app/logs/web1/access.log*
+    - /app/logs/web2/access.log*
+
+output.logstash:
+  hosts: ["logstash:5044"]

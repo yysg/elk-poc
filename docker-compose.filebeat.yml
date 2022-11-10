@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  beats:
+    image: elastic/filebeat:8.4.3
+    container_name: filebeat
+    volumes:
+      - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./log/web1:/app/logs/web1
+      - ./log/web2:/app/logs/web2
+
+    environment:
+      LOGSTASH_HOST: "logstash:5044"
+    command: filebeat -e --strict.perms=false
+    networks:
+      - elk
+
+networks:
+  elk:
+    external: true
